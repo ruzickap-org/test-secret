@@ -1,0 +1,29 @@
+---
+name: reusable-workflow
+
+on:
+  workflow_call:
+    secrets:
+      wiz_client_id:
+        description: "Wiz Client ID"
+        required: true
+      wiz_client_secret:
+        description: "Wiz Client Secret"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  wiz:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wiz details
+        env:
+          WIZ_CLIENT_ID: "${{ secrets.wiz_client_id }}"
+          WIZ_CLIENT_SECRET: ${{ secrets.wiz_client_secret }}
+        run: |
+          set -euxo pipefail
+
+          echo "${WIZ_CLIENT_ID} | sha256sum
+          echo "${WIZ_CLIENT_SECRET} | sha256sum
